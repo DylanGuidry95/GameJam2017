@@ -24,7 +24,7 @@ public class EnemyMovement : EntityMovement
 
         mRigidbody.AddForce(mMovementDirection * mMovementForce);
 	}
-    
+
     private bool CheckFront()
     {
         RaycastHit hit;
@@ -32,10 +32,11 @@ public class EnemyMovement : EntityMovement
         {
             if (hit.transform.tag == "Solid")
             {
-                if (Vector3.Distance(hit.transform.position, transform.position) <= transform.lossyScale.x)
+                if (Vector3.Distance(hit.transform.position, transform.position) <=
+                    transform.lossyScale.x)
                     return true;
             }
         }
         return false;
-    }    
+    }
 }

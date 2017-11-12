@@ -19,9 +19,9 @@ public class PlayerMovement : EntityMovement
 
         if (mIsInvert)
             movementForce *= -1;
-        
+
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
-            mRigidbody.AddForce(transform.up * mJumpForce);        
+            mRigidbody.AddForce(transform.up * mJumpForce);
 
         mRigidbody.AddForce(movementForce);
         if(mRigidbody.velocity.x > mMaxSpeed)
@@ -32,11 +32,11 @@ public class PlayerMovement : EntityMovement
     private bool CanJump()
     {
         RaycastHit hit;
-        if (Physics.BoxCast(transform.position, new Vector3(transform.lossyScale.x, 0,0), -transform.up, out hit))
-        {            
+        if (Physics.BoxCast(transform.position, new Vector3(transform.lossyScale.x, 0,0),
+            -transform.up, out hit))
+        {
             if (hit.transform.tag == "Solid")
             {
-                Debug.Log(transform.position.y - hit.transform.position.y);                                                                            
                 if (transform.position.y - hit.transform.position.y <= transform.lossyScale.y)
                     return true;
             }
