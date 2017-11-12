@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class EntityBehaviour : MonoBehaviour
+public class EntityMovement : MonoBehaviour
 {
     public float mMovementForce;
     public float mJumpForce;
@@ -26,6 +26,7 @@ public class EntityBehaviour : MonoBehaviour
         if (mName == "")
             mName = "Defualt";
         gameObject.name = mName;
+        mRigidbody.freezeRotation = true;
     }
 
     public void InvertMovement()

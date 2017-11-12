@@ -7,17 +7,17 @@ public class InverterZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<EntityBehaviour>())
+        if(other.GetComponent<EntityMovement>())
         {
-            other.GetComponent<EntityBehaviour>().InvertMovement();
+            other.GetComponent<EntityMovement>().InvertMovement();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<EntityBehaviour>())
+        if (other.GetComponent<EntityMovement>())
         {
-            other.GetComponent<EntityBehaviour>().InvertMovement();
+            other.GetComponent<EntityMovement>().InvertMovement();
         }
     }
 }

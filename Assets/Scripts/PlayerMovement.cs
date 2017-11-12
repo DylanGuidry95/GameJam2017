@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerBehaviour : EntityBehaviour
+public class PlayerMovement : EntityMovement
 {
     public void Update()
     {
