@@ -9,7 +9,6 @@ public class EntityMovement : MonoBehaviour
     public float mJumpForce;
     [Tooltip("Inverts the movement of the object")]
     public bool mIsInvert;
-    public string mName;
 
     protected Rigidbody mRigidbody;
     [SerializeField]
@@ -18,14 +17,9 @@ public class EntityMovement : MonoBehaviour
     // Use this for initialization
     protected void Start()
     {
-        if (gameObject.name != mName)
-            gameObject.name = mName;
         mRigidbody = GetComponent<Rigidbody>();
         mRigidbody.useGravity = false;
         mGravityForce = new Vector3(0, -9.81f, 0) * mRigidbody.mass;
-        if (mName == "")
-            mName = "Defualt";
-        gameObject.name = mName;
         mRigidbody.freezeRotation = true;
     }
 

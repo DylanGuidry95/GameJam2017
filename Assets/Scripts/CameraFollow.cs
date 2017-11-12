@@ -10,13 +10,15 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, mTargetPosition.position - mOffsets,
-            mFollowSpeed * Time.deltaTime);
+        if (mTargetPosition != null)
+            transform.position = Vector3.Lerp(transform.position,
+                mTargetPosition.position - mOffsets, mFollowSpeed * Time.deltaTime);
     }
 
     [ContextMenu("Set Camera Position")]
     void SetCamera()
     {
-        transform.position = mTargetPosition.position - mOffsets;
+        if (mTargetPosition != null)
+            transform.position = mTargetPosition.position - mOffsets;
     }
 }
