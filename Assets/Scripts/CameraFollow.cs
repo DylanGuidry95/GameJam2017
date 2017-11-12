@@ -13,4 +13,10 @@ public class CameraFollow : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, mTargetPosition.position - mOffsets,
             mFollowSpeed * Time.deltaTime);
     }
+
+    [ContextMenu("Set Camera Position")]
+    void SetCamera()
+    {
+        transform.position = mTargetPosition.position - mOffsets;
+    }
 }

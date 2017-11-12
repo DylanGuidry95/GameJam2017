@@ -29,6 +29,11 @@ public class EntityMovement : MonoBehaviour
         mRigidbody.freezeRotation = true;
     }
 
+    protected void Update()
+    {
+        mRigidbody.AddForce(mGravityForce);
+    }
+
     public void InvertMovement()
     {
         bool currentMovementState = mIsInvert;
@@ -38,5 +43,28 @@ public class EntityMovement : MonoBehaviour
             transform.up = -transform.up;
             mGravityForce = -mGravityForce;
         }
+    }
+
+    protected bool IsGrounded()
+    {
+        RaycastHit hit;
+        if (Physics.BoxCast(transform.position, new Vector3(transform.lossyScale.x, 0, 0),
+            -transform.up, out hit))
+        {
+            if (hit.transform.tag == "Solid")
+            {
+                if (!mIsInvert)
+                {
+                    if (transform.position.y - hit.point.y <= transform.lossyScale.y)
+                        return true;
+                }
+                else
+                {
+                    if (hit.point.y - transform.position.y <= transform.lossyScale.y)
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 }

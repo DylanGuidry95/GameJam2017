@@ -6,35 +6,67 @@ public class EnemyMovement : EntityMovement
 {
     [SerializeField]
     private Vector3 mMovementDirection;
+    public bool mIsRight;
 
     private new void Start()
     {
         base.Start();
         mMovementDirection = new Vector3(1, 0, 0);
+        mIsRight = true;
     }
 
     // Update is called once per frame
     void Update ()
     {
+        base.Update();
+
+        bool onGround = IsGrounded();
+
+
         if (CheckFront())
         {
-            mMovementDirection = -mMovementDirection;
-            transform.right = -transform.right;
+            Vector3 curDir = mMovementDirection;
+            if (curDir != -mMovementDirection)
+            {
+                mMovementDirection = -mMovementDirection;
+                mIsRight = !mIsRight;
+            }
         }
 
-        mRigidbody.AddForce(mMovementDirection * mMovementForce);
-	}
+        if(onGround)
+            mRigidbody.AddForce(mMovementDirection * mMovementForce);
+        else
+            mRigidbody.AddForce(-mRigidbody.velocity);
+    }
 
     private bool CheckFront()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.right, out hit))
+        Vector3 dir = transform.right;
+        if (!mIsRight)
+            dir = -transform.right;
+        if (Physics.SphereCast(transform.position, 0.5f,
+            dir, out hit))
         {
             if (hit.transform.tag == "Solid")
             {
-                if (Vector3.Distance(hit.transform.position, transform.position) <=
-                    transform.lossyScale.x)
-                    return true;
+                if (mIsRight)
+                {
+                    if (Mathf.Abs(hit.point.x - transform.position.x) <
+                        transform.lossyScale.x)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (Mathf.Abs(hit.point.x - transform.position.x) <=
+                        transform.lossyScale.x)
+                    {
+                        return true;
+                    }
+                }
+
             }
         }
         return false;
