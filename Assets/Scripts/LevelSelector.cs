@@ -22,7 +22,6 @@ public class LevelSelector : MonoBehaviour
     void ClearSave()
     {
         PlayerPrefs.DeleteAll();
-        GetComponent<Renderer>().material.color = Color.blue;
         mIsLocked = mDefaultLockedState;
         mIsComplete = false;
     }
@@ -42,5 +41,15 @@ public class LevelSelector : MonoBehaviour
     private void OnMouseDown()
     {
         SceneManager.LoadScene(mName);
+    }
+
+    private void OnMouseOver()
+    {
+        GetComponent<Renderer>().material.color = Color.blue;
+    }
+
+    private void OnMouseExit()
+    {
+        GetComponent<Renderer>().material.color = Color.white;
     }
 }

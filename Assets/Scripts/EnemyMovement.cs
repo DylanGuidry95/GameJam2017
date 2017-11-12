@@ -48,7 +48,7 @@ public class EnemyMovement : EntityMovement
         if (Physics.SphereCast(transform.position, 0.5f,
             dir, out hit))
         {
-            if (hit.transform.tag == "Solid")
+            if (hit.transform.tag == "Solid" || hit.transform.GetComponent<PlayerBehaviour>())
             {
                 if (mIsRight)
                 {

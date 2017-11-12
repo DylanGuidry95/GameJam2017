@@ -13,9 +13,9 @@ public class EnemyBehaviour : EntityBehaviour {
 	void Update () {
         base.Update();
         CheckForPlayer();
-	}
+    }
 
-    void CheckForPlayer()
+    bool CheckForPlayer()
     {
         RaycastHit hit;
         if(Physics.SphereCast(transform.position, 0.5f, -transform.up, out hit))
@@ -25,7 +25,8 @@ public class EnemyBehaviour : EntityBehaviour {
                 if ((transform.position - hit.point).magnitude < transform.lossyScale.y + 0.1f)
                 {
                     hit.transform.GetComponent<PlayerBehaviour>().TakeDamage(mDamage);
-                    return;
+                    hit.transform.GetComponent<Rigidbody>().AddForce(GetComponent<Rigidbody>().velocity);
+                    return true;
                 }
             }
         }
@@ -37,7 +38,8 @@ public class EnemyBehaviour : EntityBehaviour {
                 if ((transform.position - hit.point).magnitude < transform.lossyScale.x + 0.1f)
                 {
                     hit.transform.GetComponent<PlayerBehaviour>().TakeDamage(mDamage);
-                    return;
+                    hit.transform.GetComponent<Rigidbody>().AddForce(GetComponent<Rigidbody>().velocity * 2);
+                    return true;
                 }
             }
         }
@@ -50,9 +52,11 @@ public class EnemyBehaviour : EntityBehaviour {
                 if ((transform.position - hit.point).magnitude < transform.lossyScale.x + 0.1f)
                 {
                     hit.transform.GetComponent<PlayerBehaviour>().TakeDamage(mDamage);
-                    return;
+                    hit.transform.GetComponent<Rigidbody>().AddForce(GetComponent<Rigidbody>().velocity * 2);
+                    return true;
                 }
             }
         }
+        return false;
     }
 }
